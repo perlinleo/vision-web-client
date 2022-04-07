@@ -1,8 +1,9 @@
 <template>
   <div>
-    {{ name }}
-    <img :src="require(`../assets/icons/${icon}.svg`)" />
-    <input v-model="modelValue" />
+    <div class="input-field">
+      <img :src="require(`../assets/icons/${icon}.svg`)" />
+      <input v-model="modelValue" :type="type" :placeholder="placeholder" />
+    </div>
   </div>
 </template>
 
@@ -17,10 +18,19 @@ import { Options, Vue } from "vue-class-component";
     regex: String,
     icon: String,
     name: String,
+    placeholder: String,
+    hide: Boolean,
   },
   computed: {
     getValueLength() {
       return this.modelValue !== "" && this.modelValue;
+    },
+    type() {
+      if (this.hide) {
+        return "password";
+      } else {
+        return "text";
+      }
     },
   },
   data() {
@@ -37,4 +47,40 @@ export default class InputField extends Vue {
 }
 </script>
 
-<style></style>
+<style>
+.input-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 80px 12px 16px;
+  background: rgba(28, 31, 37, 0.6);
+  width: 320px;
+  height: 48px;
+  backdrop-filter: blur(20px);
+  margin-bottom: 64px;
+  border-radius: 16px;
+}
+
+input {
+  position: static;
+  -webkit-appearance: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color: white;
+  font-family: "proxima-nova";
+  width: 100%;
+}
+input:focus {
+  outline: none;
+  border: specify yours;
+}
+</style>
