@@ -52,12 +52,13 @@ export default class InputField extends Vue {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 12px 80px 12px 16px;
-  background: rgba(28, 31, 37, 0.6);
+  /* padding: 12px 16px 12px 16px; */
+  margin-left: 40px;
+  background: #1c1f25;
   width: 320px;
   height: 48px;
   backdrop-filter: blur(20px);
-  margin-bottom: 64px;
+  margin-top: 64px;
   border-radius: 16px;
 }
 

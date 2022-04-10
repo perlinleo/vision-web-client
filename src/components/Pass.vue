@@ -24,5 +24,9 @@ export default class InputField extends Vue {
 <style lang="scss" scoped>
 .card-body {
   background-color: #4c4c4c;
+  width: 320px;
+  height: 600px;
+  position: absolute;
+  border-radius: 16px;
 }
 </style>
