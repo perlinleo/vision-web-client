@@ -1,39 +1,48 @@
 <template>
-  <div class="form">
-    <h1>Первый раз?</h1>
-    <InputField name="ФИО" icon="person" placeholder="Полное имя" />
-    <InputField name="Почта" icon="envelope" placeholder="Почта" />
-    <InputField name="Пароль" icon="lock" placeholder="Пароль" hide="true" />
+  <div class="signin-view">
+    <div class="form">
+      <h1>Регистрация<img src="@/assets/icons/person_fill.svg" /></h1>
+
+      <InputField name="ФИО" icon="person" placeholder="Полное имя" />
+      <InputField name="Почта" icon="envelope" placeholder="Почта" />
+      <InputField name="Пароль" icon="lock" placeholder="Пароль" hide="true" />
+      <Button style="margin-top: 64px" label="Далее" icon="next" />
+    </div>
+    <div class="form">
+      <PassStack />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import InputField from "@/components/InputField.vue";
-import Pass from "@/components/Pass.vue";
+import Button from "@/components/Button.vue";
+import PassStack from "@/components/PassStack.vue";
 
 @Options({
   components: {
     InputField,
-    Pass,
+    Button,
+    PassStack,
   },
 })
 export default class SignInView extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  padding-top: 40px;
-  text-align: start;
-  margin-left: 40px;
+.signin-view {
+  display: flex;
+  justify-content: space-evenly;
 }
 .form {
   width: 400px;
   height: 600px;
   background: #000000;
-  opacity: 0.6;
-  backdrop-filter: blur(20px);
   /* Note: backdrop-filter has minimal browser support */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   border-radius: 16px;
 }

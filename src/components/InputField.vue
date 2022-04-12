@@ -53,8 +53,8 @@ export default class InputField extends Vue {
   flex-direction: row;
   align-items: center;
   /* padding: 12px 16px 12px 16px; */
-  margin-left: 40px;
-  background: #1c1f25;
+
+  background: #1c1c1c;
   width: 320px;
   height: 48px;
   backdrop-filter: blur(20px);
@@ -64,8 +64,6 @@ export default class InputField extends Vue {
 
 input {
   position: static;
-  -webkit-appearance: none;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -73,8 +71,6 @@ input {
   border: none;
   background-image: none;
   background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
   color: white;
   font-family: "proxima-nova";

@@ -1,32 +1,98 @@
 <template>
-  <div class="card-body"></div>
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-header-icon"></div>
+      <div class="card-header-label">{{ card.companyName }}</div>
+    </div>
+    <div class="owner">
+      <div class="owner-label">имя владельца</div>
+      <div class="owner-name">
+        {{ card.ownerFirstName }} / {{ card.ownerLastName }}
+      </div>
+    </div>
+    <qrcode-vue :value="secrelValue" size="300" level="H" />
+    <div class="card-date">
+      <div class="card-date-line">
+        <div class="card-date-until-label">активен до</div>
+        <div class="card-date-until-value">{{ card.dueDate }}</div>
+      </div>
+      <div class="card-date-line">
+        <div class="card-date-until-label">выдан</div>
+        <div class="card-date-until-value">{{ card.issueDate }}</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import { Card } from "../models/card";
+import QrcodeVue from "qrcode.vue";
 
 @Options({
   data() {
     return {
-      companyName: this.companyName,
-      ownerFirstName: this.firstName,
-      ownerLastName: this.lastName,
-      dueDate: this.dueDate,
-      issueDate: this.issueDate,
+      secretValue: "https://test.com",
     };
+  },
+  props: {
+    card: Object as () => { value: Card },
+  },
+  components: {
+    QrcodeVue,
   },
 })
 export default class InputField extends Vue {
-  msg!: string;
+  card!: Card;
 }
 </script>
 
 <style lang="scss" scoped>
+.card-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card-date-line {
+  display: flex;
+}
+.card-date-until-label {
+  color: #c4c4c4;
+  font-size: 18px;
+  font-weight: bold;
+}
+.card-date-until-value {
+  color: #000000;
+  font-size: 18px;
+  font-weight: bold;
+}
+.owner-name {
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
+}
+.owner-label {
+  color: #c4c4c4;
+}
 .card-body {
-  background-color: #4c4c4c;
+  background-color: #ebebeb;
   width: 320px;
   height: 600px;
   position: absolute;
   border-radius: 16px;
+}
+
+.card-header {
+  height: 64px;
+  display: flex;
+  background-color: red;
+  border-radius: 16px 16px 0 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header-label {
+  font-size: 18px;
 }
 </style>

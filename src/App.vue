@@ -2,19 +2,41 @@
   <div class="top-menu">
     <!-- <img src="@/assets/vijn-small.gif" width="300" /> -->
     <nav class="header-nav">
-      <router-link to="/">ВИЖН</router-link>
-      <div style="display: flex">
-        <div class="link-button">
-          <router-link to="/sign-in">Войти</router-link>
+      <router-link to="/">
+        <div v-if="this.$route.name != 'home'">
+          <img src="@/assets/vijn_logo_small.gif" width="300" />
         </div>
-        <div class="link-button">
-          <router-link to="/about">О проекте</router-link>
-        </div>
+      </router-link>
+      <div class="nav-right">
+        <router-link to="/sign-in" class="nav-right-item"
+          ><Button label="Войти"
+        /></router-link>
+        <router-link to="/about" class="nav-right-item"
+          ><Button label="О проекте"
+        /></router-link>
       </div>
     </nav>
   </div>
-  <router-view />
+  <router-view v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
+
+<script lang="ts">
+import { Options, Vue } from "vue-class-component";
+import Button from "@/components/Button.vue";
+import Pass from "@/components/Pass.vue";
+
+@Options({
+  components: {
+    Button,
+    Pass,
+  },
+})
+export default class App extends Vue {}
+</script>
 
 <style lang="scss">
 @font-face {
@@ -23,54 +45,18 @@
 }
 
 body {
-  background-color: black;
   color: white;
+  background: #030303;
 }
 
-body {
-  background: linear-gradient(
-    307deg,
-    #f593ff,
-    #a9b2ff,
-    #ffffff,
-    #4cff09,
-    #ffc409,
-    #00ff20,
-    #ff0000
-  );
-  background-size: 1400% 1400%;
-
-  animation: AnimationName 20s ease infinite;
-}
-
-@keyframes AnimationName {
-  0% {
-    background-position: 0% 11%;
-  }
-  50% {
-    background-position: 100% 90%;
-  }
-  100% {
-    background-position: 0% 11%;
-  }
-}
 #app {
   font-family: "proxima-nova";
   text-align: center;
 }
-.link-button {
-  height: 60px;
-  width: 150px;
-  background: #1c1c1c;
-  opacity: 0.6;
-  font-size: 24px;
-  border-radius: 16px;
-  backdrop-filter: blur(20px);
-  color: white;
+.nav-right {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin-left: 24px;
+  margin-top: 12px;
+  margin-right: 24px;
 }
 
 .top-menu {
@@ -80,6 +66,10 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.nav-right-item {
+  margin-left: 24px;
 }
 nav {
   padding: 30px;
@@ -91,5 +81,19 @@ nav {
     color: white;
     text-decoration: none;
   }
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-out;
+}
+
+h1 {
+  font-size: 48px;
 }
 </style>
