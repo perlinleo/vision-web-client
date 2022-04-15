@@ -10,7 +10,7 @@
         {{ card.ownerFirstName }} / {{ card.ownerLastName }}
       </div>
     </div>
-    <qrcode-vue :value="secrelValue" size="300" level="H" />
+    <qrcode-vue :value="secrelValue" size="320" level="H" />
     <div class="card-date">
       <div class="card-date-line">
         <div class="card-date-until-label">активен до</div>
@@ -32,7 +32,7 @@ import QrcodeVue from "qrcode.vue";
 @Options({
   data() {
     return {
-      secretValue: "https://test.com",
+      secretValue: "ilyagu otsosi",
     };
   },
   props: {
@@ -52,10 +52,13 @@ export default class InputField extends Vue {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 150px;
   align-items: center;
 }
 .card-date-line {
   display: flex;
+  width: 90%;
+  justify-content: space-between;
 }
 .card-date-until-label {
   color: #c4c4c4;
@@ -71,9 +74,13 @@ export default class InputField extends Vue {
   color: #000000;
   font-size: 24px;
   font-weight: bold;
+  text-align: start;
+  margin-left: 12px;
 }
 .owner-label {
   color: #c4c4c4;
+  text-align: start;
+  margin-left: 12px;
 }
 .card-body {
   background-color: #ebebeb;
@@ -81,6 +88,9 @@ export default class InputField extends Vue {
   height: 600px;
   position: absolute;
   border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card-header {
