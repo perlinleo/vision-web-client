@@ -1,37 +1,8 @@
 <template>
   <div class="signin-view">
     <div class="form">
-      <h1>Регистрация<img src="@/assets/icons/person_fill.svg" /></h1>
-      <div class="form-two-inputs-box">
-        <InputField
-          name="ФИО"
-          :value="firstName"
-          icon="person"
-          placeholder="Имя"
-          :small="true"
-          @input="
-            (e) => {
-              if (e.target) {
-                firstName = e.target.value;
-              }
-            }
-          "
-        />
-        <InputField
-          name="ФИО"
-          icon="person"
-          :value="lastName"
-          placeholder="Фамилия"
-          :small="true"
-          @input="
-            (e) => {
-              if (e.target) {
-                lastName = e.target.value;
-              }
-            }
-          "
-        />
-      </div>
+      <h1>Войти<img src="@/assets/icons/person_fill.svg" /></h1>
+
       <InputField
         name="Почта"
         icon="envelope"
@@ -77,8 +48,8 @@ import { Options, Vue } from "vue-class-component";
 import InputField from "@/components/InputField.vue";
 import Button from "@/components/Button.vue";
 import PassStack from "@/components/PassStack.vue";
-import { signUpRequest } from "@/network/signup-querry";
-import { createSignUpUser, SignUpUser } from "@/models/user";
+import { loginRequest } from "@/network/signup-querry";
+import { createLoginUser, LoginUser } from "@/models/user";
 
 @Options({
   components: {
@@ -88,8 +59,6 @@ import { createSignUpUser, SignUpUser } from "@/models/user";
   },
   data() {
     return {
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
     };
@@ -99,18 +68,13 @@ import { createSignUpUser, SignUpUser } from "@/models/user";
       this.InputField.validate();
     },
     apply() {
-      const userData: SignUpUser = createSignUpUser(
-        this.firstName,
-        this.lastName,
-        this.email,
-        this.password
-      );
+      const userData: LoginUser = createLoginUser(this.email, this.password);
       console.log(userData);
-      signUpRequest(userData);
+      loginRequest(userData);
     },
   },
 })
-export default class SignInView extends Vue {}
+export default class LoginView extends Vue {}
 </script>
 
 <style lang="scss" scoped>

@@ -8,8 +8,11 @@
         </div>
       </router-link>
       <div class="nav-right">
-        <router-link to="/sign-in" class="nav-right-item"
+        <router-link to="/login" class="nav-right-item"
           ><Button label="Войти"
+        /></router-link>
+        <router-link to="/sign-in" class="nav-right-item"
+          ><Button label="Регистрация"
         /></router-link>
         <router-link to="/about" class="nav-right-item"
           ><Button label="О проекте"

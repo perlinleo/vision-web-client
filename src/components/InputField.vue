@@ -1,8 +1,13 @@
 <template>
   <div>
-    <div class="input-field">
-      <img :src="require(`../assets/icons/${icon}.svg`)" />
-      <input v-model="modelValue" :type="type" :placeholder="placeholder" />
+    <div :class="inputFieldClass">
+      <img :src="require(`../assets/icons/${icon}.svg`)" class="input-icon" />
+      <input
+        :value="value"
+        :type="type"
+        :placeholder="placeholder"
+        @input="onInput"
+      />
     </div>
   </div>
 </template>
@@ -20,6 +25,7 @@ import { Options, Vue } from "vue-class-component";
     name: String,
     placeholder: String,
     hide: Boolean,
+    small: Boolean,
   },
   computed: {
     getValueLength() {
@@ -32,6 +38,14 @@ import { Options, Vue } from "vue-class-component";
         return "text";
       }
     },
+    inputFieldClass() {
+      console.log(this.small);
+      if (this.small) {
+        return "input-field input-field-small";
+      } else {
+        return "input-field";
+      }
+    },
   },
   data() {
     return {
@@ -41,6 +55,18 @@ import { Options, Vue } from "vue-class-component";
       showPassword: false,
     };
   },
+  model: {
+    prop: "modelValue",
+    event: "change",
+  },
+  methods: {
+    validate() {
+      return true;
+    },
+    onInput(event: { target: { value: any } }) {
+      this.$emit("input", event.target.value);
+    },
+  },
 })
 export default class InputField extends Vue {
   msg!: string;
@@ -48,6 +74,9 @@ export default class InputField extends Vue {
 </script>
 
 <style>
+.input-icon {
+  margin: 12px;
+}
 .input-field {
   display: flex;
   flex-direction: row;
@@ -60,6 +89,10 @@ export default class InputField extends Vue {
   backdrop-filter: blur(20px);
   margin-top: 64px;
   border-radius: 16px;
+}
+
+.input-field-small {
+  width: 160px;
 }
 
 input {
@@ -78,6 +111,5 @@ input {
 }
 input:focus {
   outline: none;
-  border: specify yours;
 }
 </style>

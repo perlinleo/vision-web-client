@@ -1,5 +1,5 @@
 <template>
-  <div style="transition: 0.5s">
+  <div style="transition: 0.5s" v-on:click="action">
     <div class="button">
       <div class="button-inside">
         <div class="button-label">{{ label }}</div>
