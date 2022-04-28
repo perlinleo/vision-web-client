@@ -35,5 +35,5 @@ jobs:
       run: npm run build
     
     - name: Send to server
-      run: sudo rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --omit-dir-times --no-perms --delete dist/ ubuntu@${secrets.AWS_CAR_IP}:/var/www/html/
+      run: sudo rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --omit-dir-times --no-perms --delete dist/ ubuntu@13.49.221.51:/var/www/html/
     
