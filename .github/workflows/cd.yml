@@ -1,16 +1,10 @@
-name: CI/CD
+name: Deployment
 
 on:
-  push:
-  pull_request:
-    branches:
-      - master
-      - auto-deploy
-
-  workflow_dispatch:
+  release:
 
 jobs:
-  deploy:
+  build_and_deploy_to_remote:
 
     runs-on: ubuntu-latest
 
@@ -18,7 +12,7 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-    
+
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
