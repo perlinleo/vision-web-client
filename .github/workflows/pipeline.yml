@@ -1,0 +1,39 @@
+name: CI/CD
+
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+      - auto-deploy
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Setup Deployment Key
+      run: set -eu &&
+           mkdir "$HOME/.ssh" &&
+           echo "${{ secrets.AWS_CAR_KEY }}" > "$HOME/.ssh/key" &&
+           chmod 600 "$HOME/.ssh/key"
+      
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build
+    
+    - name: Send to server
+      run: sudo rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --omit-dir-times --no-perms --delete dist/ ubuntu@${secrets.AWS_CAR_IP}:/var/www/html/
+    

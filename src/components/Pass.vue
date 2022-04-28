@@ -1,5 +1,5 @@
 <template>
-  <div class="card-body">
+  <div class="card-body" ref="card">
     <div class="card-header">
       <div class="card-header-icon"></div>
       <div class="card-header-label">{{ card.companyName }}</div>
@@ -40,6 +40,10 @@ import QrcodeVue from "qrcode.vue";
   },
   components: {
     QrcodeVue,
+  },
+  mounted() {
+    this.$refs.card.style.transform = "translateY(100px);";
+    console.log(this.$refs.card.style.transform);
   },
 })
 export default class InputField extends Vue {

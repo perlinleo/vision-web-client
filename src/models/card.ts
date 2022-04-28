@@ -1,4 +1,5 @@
 export interface Card {
+  top?: string;
   companyName: string;
   ownerFirstName: string;
   ownerLastName: string;
@@ -10,8 +11,9 @@ export interface Cards {
   cards: Card[];
 }
 
-export const createTestCard = (): Card => {
+export const createTestCard = (id: string): Card => {
   return {
+    top: id,
     companyName: "МГТУ им Баумана",
     ownerFirstName: "Леонид",
     ownerLastName: "Перлин",

@@ -1,7 +1,7 @@
 <template>
   <div v-for="card in cards" :key="card.companyName">
     <!-- {{ card.companyName }} -->
-    <Pass :card="card" />
+    <Pass :card="card" :ref="card.id" />
   </div>
 </template>
 
@@ -16,7 +16,11 @@ import Pass from "@/components/Pass.vue";
   },
   data() {
     return {
-      cards: [createTestCard(), createTestCard(), createTestCard()],
+      cards: [
+        createTestCard("first"),
+        createTestCard("second"),
+        createTestCard("third"),
+      ],
     };
   },
 })
