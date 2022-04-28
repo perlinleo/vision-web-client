@@ -26,7 +26,7 @@ jobs:
     - name: Setup Deployment Key
       run: set -eu &&
            mkdir "$HOME/.ssh" &&
-           echo "${{ secrets.AWS_CAR_KEY }}" > "$HOME/.ssh/key" &&
+           echo "${{ secrets.AWS_CAR_PEM }}" > "$HOME/.ssh/key" &&
            chmod 600 "$HOME/.ssh/key"
       
     - name: Install dependencies
