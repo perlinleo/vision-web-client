@@ -7,7 +7,7 @@
           <img src="@/assets/vijn_logo_small.gif" width="300" />
         </div>
       </router-link>
-      <div class="nav-right">
+      <div class="nav-right" v-if="!isAuthenticated">
         <router-link to="/login" class="nav-right-item"
           ><Button label="Войти"
         /></router-link>
@@ -18,13 +18,58 @@
           ><Button label="О проекте"
         /></router-link>
       </div>
+      <div class="user-info" v-if="isAuthenticated">
+        <div class="fullname">
+          {{ userFirstName }} /
+          {{ userLastName }}
+        </div>
+        <div class="user-role">
+          {{ userRole }}
+        </div>
+      </div>
     </nav>
   </div>
-  <router-view v-slot="{ Component }">
-    <transition name="fade" mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <nav class="router-view-container">
+    <div class="left-menu" v-if="!isAdmin">
+      <router-link to="/pass" class="nav-right-item"
+        ><Button label="Пропуска"
+      /></router-link>
+      <router-link to="/declarations" class="nav-right-item"
+        ><Button label="Заявки"
+      /></router-link>
+      <router-link to="/profile" class="nav-right-item"
+        ><Button label="Профиль"
+      /></router-link>
+      <Button
+        style="margin-top: 144px"
+        label="Выйти"
+        icon="next"
+        :action="logout"
+      />
+    </div>
+    <div class="left-menu" v-if="isAdmin">
+      <router-link to="/passages" class="nav-right-item"
+        ><Button label="Проходы"
+      /></router-link>
+      <router-link to="/declarations" class="nav-right-item"
+        ><Button label="Заявки"
+      /></router-link>
+      <router-link to="/profiles" class="nav-right-item"
+        ><Button label="Сотрудники"
+      /></router-link>
+      <Button
+        style="margin-top: 144px"
+        label="Выйти"
+        icon="next"
+        :action="logout"
+      />
+    </div>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -36,6 +81,30 @@ import Pass from "@/components/Pass.vue";
   components: {
     Button,
     Pass,
+  },
+  computed: {
+    isAuthenticated() {
+      // to be fixed further
+      return true;
+    },
+    isAdmin() {
+      // to be fixed further
+      return true;
+    },
+    userFirstName() {
+      return "Леонид";
+    },
+    userLastName() {
+      return "Перлин";
+    },
+    userRole() {
+      return "Сотрудник";
+    },
+  },
+  methods: {
+    logout() {
+      alert("logout");
+    },
   },
 })
 export default class App extends Vue {}
@@ -50,6 +119,29 @@ export default class App extends Vue {}
 body {
   color: white;
   background: #030303;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.fullname {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.user-role {
+  text-align: start;
+  color: #a0a0a0;
+}
+
+.router-view-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 24px;
+  margin-left: 64px;
 }
 
 #app {
