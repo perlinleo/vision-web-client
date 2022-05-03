@@ -5,3 +5,5 @@ export enum EventTypes {
 }
 
 export const EventNamesArray = ["Пропуск", "Продление", "Роль"];
+
+export const EventIconArray = ["askpass", "asktime", "askrole"];

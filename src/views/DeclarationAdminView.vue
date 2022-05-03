@@ -30,12 +30,12 @@
         date="01.02.2022"
       />
       <DeclarationsTableCell
-        :type="1"
+        :type="2"
         creator="Перлин Л.В."
         date="01.02.2022"
       />
       <DeclarationsTableCell
-        :type="1"
+        :type="0"
         creator="Перлин Л.В."
         date="01.02.2022"
       />

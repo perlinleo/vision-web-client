@@ -2,44 +2,46 @@
   <div class="declarations-cell">
     <div class="declarations-cell---item">
       {{ typeString }}
-      <img :src="require(`../assets/icons/${typeImg}.svg`)" height="24" />
+      <img :src="require(`../assets/icons/${typeImg}.svg`)" height="18" />
     </div>
     <div class="declarations-cell---item">
       {{ date }}
     </div>
     <div class="declarations-cell---item">
-      {{ creator }}
+      {{ time }}
     </div>
-    <img :src="require(`../assets/icons/inspect.svg`)" height="24" />
-    <img :src="require(`../assets/icons/accept.svg`)" height="24" />
-    <img :src="require(`../assets/icons/deny.svg`)" height="24" />
+    <div class="declarations-cell---item">
+      {{ actor }}
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { EventNamesArray, EventIconArray } from "@/models/events";
+import { PassageNamesArray, PassageIconArray } from "@/models/passage";
 
 @Options({
   props: {
     type: Number,
+    time: String,
     date: String,
-    creator: String,
+    actor: String,
   },
   computed: {
     typeString() {
-      return EventNamesArray[this.type];
+      return PassageNamesArray[this.type];
     },
     typeImg() {
-      return EventIconArray[this.type];
+      return PassageIconArray[this.type];
     },
   },
   emits: ["accept", "deny", "inspect"],
 })
-export default class DeclarationTableCell extends Vue {
+export default class PassagesTableCell extends Vue {
   type!: number;
   date!: string;
-  creator!: string;
+  time!: string;
+  actor!: string;
   typeString!: string;
   typeImg!: string;
 }
