@@ -1,3 +1,9 @@
+export interface User {
+  firstName: string;
+  lastName: string;
+  userRoleID: number;
+}
+
 export interface SignUpUser {
   firstName: string;
   lastName: string;

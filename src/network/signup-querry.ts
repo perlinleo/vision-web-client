@@ -1,4 +1,4 @@
-import { SignUpUser, LoginUser } from "@/models/user";
+import { SignUpUser, LoginUser, User } from "@/models/user";
 import { apiUrl } from "./urls";
 
 const headers = {
@@ -28,4 +28,14 @@ export const loginRequest = (data: LoginUser) => {
   })
     .then((result) => console.log(result))
     .catch((error) => console.log(error));
+};
+
+export const loginWithCookieRequest = () => {
+  const userData: User = {
+    firstName: "Леонид",
+    lastName: "Перлин",
+    userRoleID: 0,
+  };
+
+  return userData;
 };

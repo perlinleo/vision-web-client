@@ -37,9 +37,6 @@
         :action="apply"
       />
     </div>
-    <div class="form">
-      <PassStack />
-    </div>
   </div>
 </template>
 
@@ -50,6 +47,8 @@ import Button from "@/components/Button.vue";
 import PassStack from "@/components/PassStack.vue";
 import { loginRequest } from "@/network/signup-querry";
 import { createLoginUser, LoginUser } from "@/models/user";
+import router from "@/router";
+import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
 
 @Options({
   components: {
@@ -71,6 +70,20 @@ import { createLoginUser, LoginUser } from "@/models/user";
       const userData: LoginUser = createLoginUser(this.email, this.password);
       console.log(userData);
       loginRequest(userData);
+      const userDataMock = {
+        firstName: "Leonid",
+        lastName: "Perlin",
+        userRoleID: Roles.Employee,
+      };
+      this.$store.commit("loginUser", {
+        userData: {
+          firstName: "Leonid",
+          lastName: "Perlin",
+          userRoleID: Roles.Admin,
+        },
+        isAuthenticated: true,
+      });
+      router.replace(getUserStartPage(userDataMock));
     },
   },
 })

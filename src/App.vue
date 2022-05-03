@@ -11,7 +11,7 @@
         <router-link to="/login" class="nav-right-item"
           ><Button label="Войти"
         /></router-link>
-        <router-link to="/sign-in" class="nav-right-item"
+        <router-link to="/signup" class="nav-right-item"
           ><Button label="Регистрация"
         /></router-link>
         <router-link to="/about" class="nav-right-item"
@@ -30,37 +30,16 @@
     </nav>
   </div>
   <nav class="router-view-container">
-    <div class="left-menu" v-if="!isAdmin">
-      <router-link to="/pass" class="nav-right-item"
-        ><Button label="Пропуска"
-      /></router-link>
-      <router-link to="/declarations" class="nav-right-item"
-        ><Button label="Заявки"
-      /></router-link>
-      <router-link to="/profile" class="nav-right-item"
-        ><Button label="Профиль"
-      /></router-link>
+    <div class="left-menu" v-if="isAuthenticated">
+      <div v-for="item in menuItems" :key="item.path">
+        <router-link :to="item.path" class="nav-right-item"
+          ><Button :label="item.label" :icon="item.icon"
+        /></router-link>
+      </div>
       <Button
         style="margin-top: 144px"
         label="Выйти"
-        icon="next"
-        :action="logout"
-      />
-    </div>
-    <div class="left-menu" v-if="isAdmin">
-      <router-link to="/passages" class="nav-right-item"
-        ><Button label="Проходы"
-      /></router-link>
-      <router-link to="/declarations" class="nav-right-item"
-        ><Button label="Заявки"
-      /></router-link>
-      <router-link to="/profiles" class="nav-right-item"
-        ><Button label="Сотрудники"
-      /></router-link>
-      <Button
-        style="margin-top: 144px"
-        label="Выйти"
-        icon="next"
+        icon="logout"
         :action="logout"
       />
     </div>
@@ -76,6 +55,7 @@
 import { Options, Vue } from "vue-class-component";
 import Button from "@/components/Button.vue";
 import Pass from "@/components/Pass.vue";
+import { mapGetters } from "vuex";
 
 @Options({
   components: {
@@ -83,28 +63,22 @@ import Pass from "@/components/Pass.vue";
     Pass,
   },
   computed: {
-    isAuthenticated() {
-      // to be fixed further
-      return true;
-    },
-    isAdmin() {
-      // to be fixed further
-      return true;
-    },
-    userFirstName() {
-      return "Леонид";
-    },
-    userLastName() {
-      return "Перлин";
-    },
-    userRole() {
-      return "Сотрудник";
-    },
+    ...mapGetters({
+      isAuthenticated: "isAuthenticated",
+      userFirstName: "getUserFirstName",
+      userLastName: "getUserLastName",
+      userRole: "getUserRoleName",
+      menuItems: "getMenuItems",
+    }),
   },
   methods: {
     logout() {
-      alert("logout");
+      //fix cringe
+      this.$store.commit("logoutUser");
     },
+  },
+  mounted() {
+    console.log("hello");
   },
 })
 export default class App extends Vue {}
