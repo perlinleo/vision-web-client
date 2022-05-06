@@ -1,5 +1,5 @@
 <template>
-  <div class="signin-view">
+  <div class="login-view">
     <div class="form">
       <h1>Войти<img src="@/assets/icons/person_fill.svg" /></h1>
 
@@ -79,7 +79,7 @@ import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
         userData: {
           firstName: "Leonid",
           lastName: "Perlin",
-          userRoleID: Roles.Admin,
+          userRoleID: Roles.ProEmployee,
         },
         isAuthenticated: true,
       });
@@ -94,9 +94,10 @@ export default class LoginView extends Vue {}
 .form-two-inputs-box {
   display: flex;
 }
-.signin-view {
+.login-view {
   display: flex;
   justify-content: space-evenly;
+  width: 100%;
 }
 .form {
   width: 400px;

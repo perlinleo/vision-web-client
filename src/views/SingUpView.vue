@@ -66,9 +66,7 @@
         :action="apply"
       />
     </div>
-    <div class="form">
-      <PassStack />
-    </div>
+    <Pass :card="card" />
   </div>
 </template>
 
@@ -78,13 +76,16 @@ import InputField from "@/components/InputField.vue";
 import Button from "@/components/Button.vue";
 import PassStack from "@/components/PassStack.vue";
 import { signUpRequest } from "@/network/signup-querry";
+import { Cards, createTestCard, Card } from "../models/card";
 import { createSignUpUser, SignUpUser } from "@/models/user";
+import Pass from "@/components/Pass.vue";
 
 @Options({
   components: {
     InputField,
     Button,
     PassStack,
+    Pass,
   },
   data() {
     return {
@@ -93,6 +94,18 @@ import { createSignUpUser, SignUpUser } from "@/models/user";
       email: "",
       password: "",
     };
+  },
+  computed: {
+    card() {
+      const today = new Date().toISOString().slice(0, 10);
+      return {
+        companyName: "ВИЖН",
+        ownerFirstName: this.firstName,
+        ownerLastName: this.lastName,
+        dueDate: "2024-05-24",
+        issueDate: today,
+      };
+    },
   },
   methods: {
     validate() {
@@ -119,6 +132,7 @@ export default class SignInView extends Vue {}
 }
 .signin-view {
   display: flex;
+  width: 100%;
   justify-content: space-evenly;
 }
 .form {

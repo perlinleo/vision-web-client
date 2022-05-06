@@ -13,7 +13,6 @@ export interface Cards {
 
 export const createTestCard = (id: string): Card => {
   return {
-    top: id,
     companyName: "МГТУ им Баумана",
     ownerFirstName: "Леонид",
     ownerLastName: "Перлин",

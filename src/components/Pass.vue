@@ -10,7 +10,7 @@
         {{ card.ownerFirstName }} / {{ card.ownerLastName }}
       </div>
     </div>
-    <qrcode-vue :value="secrelValue" size="320" level="H" />
+    <qrcode-vue :value="secretValue" size="320" level="H" />
     <div class="card-date">
       <div class="card-date-line">
         <div class="card-date-until-label">активен до</div>
@@ -90,7 +90,6 @@ export default class InputField extends Vue {
   background-color: #ebebeb;
   width: 320px;
   height: 600px;
-  position: absolute;
   border-radius: 16px;
   display: flex;
   flex-direction: column;

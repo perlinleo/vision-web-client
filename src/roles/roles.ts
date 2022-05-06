@@ -10,6 +10,15 @@ export enum Roles {
   Admin = 4,
 }
 
+export const RoleNamesArray = [
+  "Сотрудник",
+  "Уполномоченный сотрудник",
+  "Сотрудник службы безопасности",
+  "Администратор",
+];
+
+export const RoleIconArray = ["person", "proemployee", "guard", "admin"];
+
 export const userMenus: Map<number, Array<menuItem | undefined>> = new Map([
   [
     Roles.NewUser,

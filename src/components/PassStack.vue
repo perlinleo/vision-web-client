@@ -7,12 +7,15 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { Cards, createTestCard } from "../models/card";
+import { Cards, createTestCard, Card } from "../models/card";
 import Pass from "@/components/Pass.vue";
 
 @Options({
   components: {
     Pass,
+  },
+  props: {
+    cards: String,
   },
   data() {
     return {
