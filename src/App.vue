@@ -18,15 +18,7 @@
           ><Button label="О проекте"
         /></router-link>
       </div>
-      <div class="user-info" v-if="isAuthenticated">
-        <div class="fullname">
-          {{ userFirstName }} /
-          {{ userLastName }}
-        </div>
-        <div class="user-role">
-          {{ userRole }}
-        </div>
-      </div>
+      <UserInfo v-if="isAuthenticated && $route.name != 'profile'" />
     </nav>
   </div>
   <nav class="router-view-container">
@@ -55,12 +47,14 @@
 import { Options, Vue } from "vue-class-component";
 import Button from "@/components/Button.vue";
 import Pass from "@/components/Pass.vue";
+import UserInfo from "./components/UserInfo.vue";
 import { mapGetters } from "vuex";
 
 @Options({
   components: {
     Button,
     Pass,
+    UserInfo,
   },
   computed: {
     ...mapGetters({
@@ -81,7 +75,9 @@ import { mapGetters } from "vuex";
     console.log("hello");
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  isAuthenticated!: boolean;
+}
 </script>
 
 <style lang="scss">
@@ -93,21 +89,6 @@ export default class App extends Vue {}
 body {
   color: white;
   background: #030303;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.fullname {
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.user-role {
-  text-align: start;
-  color: #a0a0a0;
 }
 
 .router-view-container {

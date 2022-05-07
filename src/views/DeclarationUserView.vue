@@ -10,9 +10,9 @@
           placeholder="Поиск"
           :value="search"
           @input="
-            (e) => {
+            (e: Event) => {
               if (e.target) {
-                search = e.target.value;
+                search = (e.target as HTMLInputElement).value;
               }
             }
           "
@@ -49,7 +49,10 @@ import InputField from "@/components/InputField.vue";
     };
   },
 })
-export default class HomeView extends Vue {}
+export default class HomeView extends Vue {
+  search!: string;
+  e!: Event;
+}
 </script>
 
 <style scoped>

@@ -19,11 +19,7 @@ import Pass from "@/components/Pass.vue";
   },
   data() {
     return {
-      cards: [
-        createTestCard("first"),
-        createTestCard("second"),
-        createTestCard("third"),
-      ],
+      cards: [createTestCard(1), createTestCard(2), createTestCard(3)],
     };
   },
 })

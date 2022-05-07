@@ -76,7 +76,6 @@ import InputField from "@/components/InputField.vue";
 import Button from "@/components/Button.vue";
 import PassStack from "@/components/PassStack.vue";
 import { signUpRequest } from "@/network/signup-querry";
-import { Cards, createTestCard, Card } from "../models/card";
 import { createSignUpUser, SignUpUser } from "@/models/user";
 import Pass from "@/components/Pass.vue";
 

@@ -8,12 +8,14 @@ import {
 } from "@/roles/roles";
 import { User } from "@/models/user";
 import { menuItem } from "@/router/menuItems";
+import { Card, createTestCard } from "@/models/card";
 
 export interface State {
   count: number;
   isAuthenticated: boolean;
   userData: User;
   menuItems: Array<menuItem | undefined>;
+  userPasses: Array<Card>;
 }
 export const store = createStore<State>({
   state: {
@@ -24,6 +26,15 @@ export const store = createStore<State>({
       lastName: "",
       userRoleID: 0,
     },
+    userPasses: [
+      createTestCard(1),
+      createTestCard(2),
+      createTestCard(3),
+      createTestCard(4),
+      createTestCard(5),
+      createTestCard(6),
+      createTestCard(7),
+    ],
     menuItems: [],
   },
   getters: {
@@ -44,6 +55,9 @@ export const store = createStore<State>({
     },
     getUserLastName(state: State) {
       return state.userData.lastName;
+    },
+    getUserPassData(state: State) {
+      return state.userPasses;
     },
   },
   mutations: {
