@@ -25,10 +25,17 @@
         <div class="table---heading---item">ФИО</div>
         <div class="table---heading---item">Дата регистрации</div>
       </div>
-      <ProfilesTableCell :type="0" name="Перлин Л.В." date="01.02.2022" />
-      <ProfilesTableCell :type="1" name="Перлин Л.В." date="01.02.2022" />
-      <ProfilesTableCell :type="2" name="Перлин Л.В." date="01.02.2022" />
-      <ProfilesTableCell :type="3" name="Перлин Л.В." date="01.02.2022" />
+      <div v-for="user in data" :key="user">
+        <ProfilesTableCell
+          :type="user.RoleID - 1"
+          :name="user.name"
+          :date="user.created.slice(0, 10)"
+        />
+      </div>
+
+      <!-- <ProfilesTableCell :type="1" name="Перлин Л.В." date="01.02.2022" /> -->
+      <!-- <ProfilesTableCell :type="2" name="Перлин Л.В." date="01.02.2022" /> -->
+      <!-- <ProfilesTableCell :type="3" name="Перлин Л.В." date="01.02.2022" /> -->
     </div>
   </div>
 </template>
@@ -37,6 +44,7 @@
 import { Options, Vue } from "vue-class-component";
 import ProfilesTableCell from "@/components/ProfilesTableCell.vue";
 import IconHeading from "@/components/IconHeading.vue";
+import { usersRequest } from "@/network/signup-querry";
 import InputField from "@/components/InputField.vue";
 
 @Options({
@@ -48,7 +56,21 @@ import InputField from "@/components/InputField.vue";
   data() {
     return {
       search: "",
+      data: [],
     };
+  },
+  watch: {
+    search() {
+      usersRequest(this.search).then((result) => {
+        this.data = result;
+      });
+    },
+  },
+
+  mounted() {
+    usersRequest(this.search).then((result) => {
+      this.data = result;
+    });
   },
 })
 export default class PassagesAdminView extends Vue {

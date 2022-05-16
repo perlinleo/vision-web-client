@@ -4,6 +4,12 @@ export interface User {
   userRoleID: number;
 }
 
+export type UserAccountResponse = {
+  name: string;
+  RoleID: number;
+  created: string;
+};
+
 export interface SignUpUser {
   firstName: string;
   lastName: string;

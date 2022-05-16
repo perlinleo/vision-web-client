@@ -49,6 +49,10 @@ import Button from "@/components/Button.vue";
 import Pass from "@/components/Pass.vue";
 import UserInfo from "./components/UserInfo.vue";
 import { mapGetters } from "vuex";
+import { userRequest } from "@/network/signup-querry";
+import router from "@/router";
+import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
+import { User, UserAccountResponse } from "./models/user";
 
 @Options({
   components: {
@@ -72,7 +76,23 @@ import { mapGetters } from "vuex";
     },
   },
   mounted() {
-    console.log("hello");
+    // console.log("hello");
+    let userData: User;
+    userRequest().then((result) => {
+      const response = result as unknown as UserAccountResponse;
+      console.log(response);
+      this.$store.commit("loginUser", {
+        userData: {
+          firstName: response.name.split(" ")[0],
+          lastName: response.name.split(" ")[1],
+          userRoleID: response.RoleID,
+        },
+        isAuthenticated: true,
+      });
+
+      router.replace(getUserStartPage(response.RoleID));
+      // userData = result.json;
+    });
   },
 })
 export default class App extends Vue {

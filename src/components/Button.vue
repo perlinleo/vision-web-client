@@ -47,10 +47,11 @@ import { Options, Vue } from "vue-class-component";
 })
 export default class Button extends Vue {
   msg!: string;
+  icon!: string;
 }
 </script>
 
-<style>
+<style scoped>
 .button-inside {
   display: flex;
   align-items: center;

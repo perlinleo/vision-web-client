@@ -10,7 +10,8 @@
         {{ card.ownerFirstName }} / {{ card.ownerLastName }}
       </div>
     </div>
-    <qrcode-vue :value="secretValue" size="320" level="H" />
+    <qrcode-vue v-if="!unknownQr" :value="secretValue" size="320" level="H" />
+    <img v-else :src="require(`@/assets/icons/unknown-qr.svg`)" height="320" />
     <div class="card-date">
       <div class="card-date-line">
         <div class="card-date-until-label">активен до</div>
@@ -37,6 +38,7 @@ import QrcodeVue from "qrcode.vue";
   },
   props: {
     card: Object as () => { value: Card },
+    unknownQr: Boolean,
   },
   components: {
     QrcodeVue,
@@ -48,6 +50,7 @@ import QrcodeVue from "qrcode.vue";
 })
 export default class InputField extends Vue {
   card!: Card;
+  unknownQr!: boolean;
 }
 </script>
 

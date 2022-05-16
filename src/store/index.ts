@@ -11,7 +11,6 @@ import { menuItem } from "@/router/menuItems";
 import { Card, createTestCard } from "@/models/card";
 
 export interface State {
-  count: number;
   isAuthenticated: boolean;
   userData: User;
   menuItems: Array<menuItem | undefined>;
@@ -19,7 +18,6 @@ export interface State {
 }
 export const store = createStore<State>({
   state: {
-    count: 0,
     isAuthenticated: false,
     userData: {
       firstName: "",
@@ -39,7 +37,7 @@ export const store = createStore<State>({
   },
   getters: {
     getUserRoleName(state: State) {
-      return getUserRoleName(state.userData);
+      return getUserRoleName(state.userData.userRoleID);
     },
     getMenuItems(state: State) {
       return state.menuItems;

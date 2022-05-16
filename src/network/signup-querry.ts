@@ -18,6 +18,24 @@ export const signUpRequest = (data: SignUpUser) => {
     .catch((error) => console.log(error));
 };
 
+export const userRequest = (): Promise<Response> => {
+  return fetch(`${apiUrl}/api/v1/user`, {
+    headers: headers,
+    method: "GET",
+  }).then((result) => {
+    return result.json();
+  });
+};
+
+export const usersRequest = (nameQuery: string): Promise<Response> => {
+  return fetch(`${apiUrl}/api/v1/users?name=${nameQuery}`, {
+    headers: headers,
+    method: "GET",
+  }).then((result) => {
+    return result.json();
+  });
+};
+
 export const loginRequest = (data: LoginUser) => {
   const body = JSON.stringify(data);
 

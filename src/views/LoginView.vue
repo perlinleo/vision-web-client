@@ -79,11 +79,11 @@ import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
         userData: {
           firstName: "Leonid",
           lastName: "Perlin",
-          userRoleID: Roles.ProEmployee,
+          userRoleID: Roles.Admin,
         },
         isAuthenticated: true,
       });
-      router.replace(getUserStartPage(userDataMock));
+      router.replace(getUserStartPage(userDataMock.userRoleID));
     },
   },
 })

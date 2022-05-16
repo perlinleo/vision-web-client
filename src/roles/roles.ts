@@ -80,18 +80,18 @@ export const roleNamesMap: Map<number, string> = new Map([
   [4, "Администратор"],
 ]);
 
-type GetUserDataFunction = (a: User) => string;
+type GetUserDataFunction = (a: number) => string;
 
-export const getUserRoleName: GetUserDataFunction = (user: User) => {
-  const name = roleNamesMap.get(user.userRoleID);
+export const getUserRoleName: GetUserDataFunction = (userRoleID: number) => {
+  const name = roleNamesMap.get(userRoleID);
   if (!name) {
     return "Неизвестный сотрудник";
   }
   return name;
 };
 
-export const getUserStartPage: GetUserDataFunction = (user: User) => {
-  const path = startPageMap.get(user.userRoleID);
+export const getUserStartPage: GetUserDataFunction = (userRoleID: number) => {
+  const path = startPageMap.get(userRoleID);
   if (!path) {
     return "/";
   }
