@@ -10,21 +10,35 @@
     <div class="declarations-cell---item">
       {{ creator }}
     </div>
-    <img :src="require(`../assets/icons/inspect.svg`)" height="24" />
-    <img :src="require(`../assets/icons/accept.svg`)" height="24" />
-    <img :src="require(`../assets/icons/deny.svg`)" height="24" />
+    <img
+      :src="require(`../assets/icons/inspect.svg`)"
+      height="24"
+      @click="inspect"
+    />
+    <img
+      :src="require(`../assets/icons/accept.svg`)"
+      height="24"
+      @click="accept"
+    />
+    <img :src="require(`../assets/icons/deny.svg`)" height="24" @click="deny" />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import { EventNamesArray, EventIconArray } from "@/models/events";
+import {
+  acceptDeclarationsRequest,
+  denyDeclarationsRequest,
+} from "@/network/declaration";
+import { DeclarationToReact } from "@/models/declaration";
 
 @Options({
   props: {
     type: Number,
     date: String,
     creator: String,
+    innerID: Number,
   },
   computed: {
     typeString() {
@@ -32,6 +46,31 @@ import { EventNamesArray, EventIconArray } from "@/models/events";
     },
     typeImg() {
       return EventIconArray[this.type];
+    },
+  },
+  data() {
+    return {
+      innerID: this.innerID,
+      type: this.type,
+    };
+  },
+  methods: {
+    inspect() {
+      console.log(this.type);
+    },
+    accept() {
+      let formData: DeclarationToReact = {
+        innerID: this.innerID,
+        type: this.type,
+      };
+      acceptDeclarationsRequest(formData);
+    },
+    deny() {
+      let formData: DeclarationToReact = {
+        innerID: this.innerID,
+        type: this.type,
+      };
+      denyDeclarationsRequest(formData);
     },
   },
   emits: ["accept", "deny", "inspect"],

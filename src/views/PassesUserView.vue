@@ -11,14 +11,31 @@
           class="passes---viewer---pass-background"
           @click="SelectPass(pass.id)"
         >
-          <Pass :card="pass" />
+          <Pass
+            :card="{
+              companyName: pass.pass_name,
+              ownerFirstName: userFirstName,
+              ownerLastName: userLastName,
+              dueDate: pass.dueDate.slice(0, 10),
+              issueDate: pass.issueDate.slice(0, 10),
+            }"
+            :unknownQr="!pass.is_active"
+          />
         </div>
         <div
           v-else
           class="passes---viewer---pass---selected"
           @click="DeselectPass(pass.id)"
         >
-          <Pass :card="pass" />
+          <Pass
+            :card="{
+              companyName: 'имя',
+              ownerFirstName: 'имя',
+              ownerLastName: 'имя',
+              dueDate: 'имя',
+              issueDate: 'имя',
+            }"
+          />
           <Button
             style="margin-top: 64px"
             label="Продлить"
@@ -43,6 +60,7 @@ import Pass from "@/components/Pass.vue";
 import { mapGetters } from "vuex";
 import { Card } from "@/models/card";
 import Button from "../components/Button.vue";
+import { passesRequest } from "@/network/passes";
 
 @Options({
   components: {
@@ -52,11 +70,15 @@ import Button from "../components/Button.vue";
   data() {
     return {
       PassSelected: Number,
+      passes: [],
     };
   },
   computed: {
     ...mapGetters({
-      passes: "getUserPassData",
+      userFirstName: "getUserFirstName",
+      userLastName: "getUserLastName",
+      userRole: "getUserRoleName",
+      userRoleID: "getUserRoleID",
     }),
   },
   methods: {
@@ -66,6 +88,12 @@ import Button from "../components/Button.vue";
     DeselectPass(id: number) {
       this.PassSelected = -1;
     },
+  },
+  mounted() {
+    passesRequest().then((result) => {
+      console.log(result);
+      this.passes = result;
+    });
   },
 })
 export default class PassView extends Vue {
@@ -118,23 +146,14 @@ export default class PassView extends Vue {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #e4e4e4;
-  background-image: linear-gradient(
-    90deg,
-    #030303 0%,
-    #24262a 50%,
-    #f3f3e5 100%
-  );
+  background-color: #202020;
+
   border-radius: 100px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(
-    90deg,
-    #030303 0%,
-    #24262a 50%,
-    #f3f3e5 100%
-  );
+  background-color: #e4e4e4;
+
   box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
   border-radius: 100px;
 }

@@ -11,6 +11,24 @@ export interface Cards {
   cards: Card[];
 }
 
+export const createCardBase = (
+  id: number,
+  name: string,
+  ownerFirstName: string,
+  ownerLastName: string,
+  dueDate: string,
+  issueDate: string
+): Card => {
+  return {
+    id: id,
+    companyName: name,
+    ownerFirstName: ownerFirstName,
+    ownerLastName: ownerLastName,
+    dueDate: dueDate,
+    issueDate: issueDate,
+  };
+};
+
 export const createTestCard = (id: number): Card => {
   return {
     id: id,

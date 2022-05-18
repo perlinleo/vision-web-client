@@ -25,12 +25,14 @@
         <div class="table---heading---item">ФИО</div>
         <div class="table---heading---item">Дата регистрации</div>
       </div>
-      <div v-for="user in data" :key="user">
-        <ProfilesTableCell
-          :type="user.RoleID - 1"
-          :name="user.name"
-          :date="user.created.slice(0, 10)"
-        />
+      <div class="table---content">
+        <div v-for="user in data" :key="user">
+          <ProfilesTableCell
+            :type="user.RoleID - 1"
+            :name="user.name"
+            :date="user.created.slice(0, 10)"
+          />
+        </div>
       </div>
 
       <!-- <ProfilesTableCell :type="1" name="Перлин Л.В." date="01.02.2022" /> -->
@@ -86,11 +88,32 @@ export default class PassagesAdminView extends Vue {
   border-radius: 16px;
 }
 
+.table---content {
+  height: 250px;
+  overflow-y: scroll;
+}
 .table---top {
   display: flex;
   margin-left: 32px;
   margin-right: 32px;
   justify-content: space-between;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #202020;
+
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e4e4e4;
+
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+  border-radius: 100px;
 }
 
 .table---heading {

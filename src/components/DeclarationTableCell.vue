@@ -10,9 +10,17 @@
     <div class="declarations-cell---item">
       {{ creator }}
     </div>
-    <img :src="require(`../assets/icons/inspect.svg`)" height="24" />
-    <img :src="require(`../assets/icons/accept.svg`)" height="24" />
-    <img :src="require(`../assets/icons/deny.svg`)" height="24" />
+    <img
+      :src="require(`../assets/icons/inspect.svg`)"
+      height="24"
+      v-if="!accepted && !denied"
+    />
+    <img
+      :src="require(`../assets/icons/accept.svg`)"
+      height="24"
+      v-if="accepted"
+    />
+    <img :src="require(`../assets/icons/deny.svg`)" height="24" v-if="denied" />
   </div>
 </template>
 
@@ -25,6 +33,14 @@ import { EventNamesArray, EventIconArray } from "@/models/events";
     type: Number,
     date: String,
     creator: String,
+    accepted: Boolean,
+    denied: Boolean,
+  },
+  data() {
+    return {
+      accepted: this.accepted,
+      denied: this.denied,
+    };
   },
   computed: {
     typeString() {
@@ -42,6 +58,8 @@ export default class DeclarationTableCell extends Vue {
   creator!: string;
   typeString!: string;
   typeImg!: string;
+  accepted!: boolean;
+  denied!: boolean;
 }
 </script>
 

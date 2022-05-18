@@ -24,21 +24,16 @@
         <div class="table---heading---item">Составитель</div>
         <div class="table---heading---item">Действия</div>
       </div>
-      <DeclarationsTableCell
-        :type="1"
-        creator="Перлин Л.В."
-        date="01.02.2022"
-      />
-      <DeclarationsTableCell
-        :type="2"
-        creator="Перлин Л.В."
-        date="01.02.2022"
-      />
-      <DeclarationsTableCell
-        :type="0"
-        creator="Перлин Л.В."
-        date="01.02.2022"
-      />
+
+      <div v-for="declaration in data" :key="declaration">
+        <DeclarationsTableCell
+          v-if="!(declaration.accepted || declaration.denied)"
+          :type="declaration.type"
+          :creator="declaration.creator"
+          :date="declaration.created.slice(0, 10)"
+          :innerID="declaration.innerID"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +43,7 @@ import { Options, Vue } from "vue-class-component";
 import DeclarationsTableCell from "@/components/DeclarationsTableCell.vue";
 import IconHeading from "@/components/IconHeading.vue";
 import InputField from "@/components/InputField.vue";
+import { declarationsRequest } from "@/network/declaration";
 
 @Options({
   components: {
@@ -58,7 +54,20 @@ import InputField from "@/components/InputField.vue";
   data() {
     return {
       search: "",
+      data: [],
+      roleFormOpen: false,
     };
+  },
+  mounted() {
+    declarationsRequest().then((result) => {
+      this.data = result;
+      console.log(result);
+    });
+  },
+  methods: {
+    openRoleForm() {
+      this.roleFormOpen = true;
+    },
   },
 })
 export default class HomeView extends Vue {}

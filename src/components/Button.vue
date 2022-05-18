@@ -64,7 +64,7 @@ export default class Button extends Vue {
   position: static;
   max-width: 90px;
   -webkit-appearance: none;
-  font-family: "Inter";
+  /* font-family: "Inter"; */
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -117,6 +117,27 @@ export default class Button extends Vue {
   box-shadow: 0px 0px 24px 4px rgba(195, 0, 255, 0.5);
 }
 
+@media only screen and (max-width: 600px) {
+  .button-label {
+    position: static;
+    max-width: 90px;
+    -webkit-appearance: none;
+    /* font-family: "Inter"; */
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    border: none;
+    background-image: none;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: white;
+    font-family: "proxima-nova";
+    width: 100%;
+  }
+}
 @keyframes buttonFocus {
   0% {
     background-position: 0% 0%;

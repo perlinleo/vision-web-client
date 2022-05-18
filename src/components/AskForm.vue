@@ -40,7 +40,7 @@ import AskTime from "@/components/AskTime.vue";
   },
   data() {
     return {
-      selected: 0,
+      selected: this.preferredType,
     };
   },
   computed: {

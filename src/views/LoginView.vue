@@ -2,7 +2,7 @@
   <div class="login-view">
     <div class="form">
       <h1>Войти<img src="@/assets/icons/person_fill.svg" /></h1>
-
+      {{ error }}
       <InputField
         name="Почта"
         icon="envelope"
@@ -45,8 +45,8 @@ import { Options, Vue } from "vue-class-component";
 import InputField from "@/components/InputField.vue";
 import Button from "@/components/Button.vue";
 import PassStack from "@/components/PassStack.vue";
-import { loginRequest } from "@/network/signup-querry";
-import { createLoginUser, LoginUser } from "@/models/user";
+import { loginRequest, userRequest } from "@/network/signup-querry";
+import { createLoginUser, LoginUser, UserAccountResponse } from "@/models/user";
 import router from "@/router";
 import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
 
@@ -60,6 +60,7 @@ import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
     return {
       email: "",
       password: "",
+      error: "",
     };
   },
   methods: {
@@ -69,21 +70,30 @@ import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
     apply() {
       const userData: LoginUser = createLoginUser(this.email, this.password);
       console.log(userData);
-      loginRequest(userData);
-      const userDataMock = {
-        firstName: "Leonid",
-        lastName: "Perlin",
-        userRoleID: Roles.Employee,
-      };
-      this.$store.commit("loginUser", {
-        userData: {
-          firstName: "Leonid",
-          lastName: "Perlin",
-          userRoleID: Roles.Admin,
-        },
-        isAuthenticated: true,
+      loginRequest(userData).then((response) => {
+        console.log(response);
+        if (response.status == 403) {
+          console.log("forbiden");
+          this.error = "Ошибка входа";
+        } else {
+          console.log("success");
+          userRequest().then((result) => {
+            const response = result as unknown as UserAccountResponse;
+            console.log(response);
+            this.$store.commit("loginUser", {
+              userData: {
+                firstName: response.name.split(" ")[0],
+                lastName: response.name.split(" ")[1],
+                userRoleID: response.RoleID,
+              },
+              isAuthenticated: true,
+            });
+
+            router.replace(getUserStartPage(response.RoleID));
+            // userData = result.json;
+          });
+        }
       });
-      router.replace(getUserStartPage(userDataMock.userRoleID));
     },
   },
 })

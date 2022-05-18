@@ -2,6 +2,7 @@
   <div class="signin-view">
     <div class="form">
       <h1>Регистрация<img src="@/assets/icons/person_fill.svg" /></h1>
+      {{ error }}
       <div class="form-two-inputs-box">
         <InputField
           name="ФИО"
@@ -75,9 +76,19 @@ import { Options, Vue } from "vue-class-component";
 import InputField from "@/components/InputField.vue";
 import Button from "@/components/Button.vue";
 import PassStack from "@/components/PassStack.vue";
-import { signUpRequest } from "@/network/signup-querry";
-import { createSignUpUser, SignUpUser } from "@/models/user";
+import {
+  loginRequest,
+  signUpRequest,
+  userRequest,
+} from "@/network/signup-querry";
+import {
+  createSignUpUser,
+  SignUpUser,
+  UserAccountResponse,
+} from "@/models/user";
 import Pass from "@/components/Pass.vue";
+import { getUserStartPage } from "@/roles/roles";
+import router from "@/router";
 
 @Options({
   components: {
@@ -92,6 +103,7 @@ import Pass from "@/components/Pass.vue";
       lastName: "",
       email: "",
       password: "",
+      error: "",
     };
   },
   computed: {
@@ -118,7 +130,37 @@ import Pass from "@/components/Pass.vue";
         this.password
       );
       console.log(userData);
-      signUpRequest(userData);
+      signUpRequest(userData).then((response) => {
+        if (response.status == 403 || response.status == 500) {
+          this.error = "Такой пользователь уже зарегистрирован";
+        } else {
+          loginRequest(userData)
+            .then((response) => {
+              console.log(response);
+              if (response.status == 403 || response.status == 500) {
+                console.log("forbiden");
+                // this.error = "Такой пользователь уже зарегистрирован";
+              } else {
+                console.log("success");
+                userRequest().then((result) => {
+                  const response = result as unknown as UserAccountResponse;
+                  console.log(response);
+                  this.$store.commit("loginUser", {
+                    userData: {
+                      firstName: response.name.split(" ")[0],
+                      lastName: response.name.split(" ")[1],
+                      userRoleID: response.RoleID,
+                    },
+                    isAuthenticated: true,
+                  });
+                  router.replace(getUserStartPage(response.RoleID));
+                  // userData = result.json;
+                });
+              }
+            })
+            .catch((error) => console.log("error"));
+        }
+      });
     },
   },
 })

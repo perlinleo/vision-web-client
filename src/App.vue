@@ -49,7 +49,7 @@ import Button from "@/components/Button.vue";
 import Pass from "@/components/Pass.vue";
 import UserInfo from "./components/UserInfo.vue";
 import { mapGetters } from "vuex";
-import { userRequest } from "@/network/signup-querry";
+import { logoutRequest, userRequest } from "@/network/signup-querry";
 import router from "@/router";
 import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
 import { User, UserAccountResponse } from "./models/user";
@@ -72,6 +72,7 @@ import { User, UserAccountResponse } from "./models/user";
   methods: {
     logout() {
       //fix cringe
+      logoutRequest();
       this.$store.commit("logoutUser");
     },
   },
@@ -110,7 +111,13 @@ body {
   color: white;
   background: #030303;
 }
-
+@media only screen and (max-width: 600px) {
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+  }
+}
 .router-view-container {
   display: flex;
   justify-content: space-between;
@@ -122,6 +129,28 @@ body {
 #app {
   font-family: "proxima-nova";
   text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  #app {
+    width: 100%;
+    height: 100%;
+  }
+  .header-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .router-view-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0px;
+    margin-left: 0px;
+    padding: 0px;
+  }
 }
 .nav-right {
   display: flex;
