@@ -1,1 +1,1 @@
-export const apiUrl = "http://vision.leonidperl.in/";
+export const apiUrl = "https://vision.leonidperl.in/";
