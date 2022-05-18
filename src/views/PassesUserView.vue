@@ -5,6 +5,7 @@
         class="passes---viewer---pass"
         v-for="pass in passes"
         :key="pass.companyName"
+        :percentage="percentage"
       >
         <div
           v-if="PassSelected != pass.id"
@@ -20,6 +21,8 @@
               issueDate: pass.issueDate.slice(0, 10),
             }"
             :unknownQr="!pass.is_active"
+            :secureData="pass.secure_data"
+            :percentage="percentage"
           />
         </div>
         <div
@@ -71,6 +74,9 @@ import { passesRequest } from "@/network/passes";
     return {
       PassSelected: Number,
       passes: [],
+      percentage: 0,
+      lastTimeUpgraded: Number,
+      componentKey: 0,
     };
   },
   computed: {
@@ -88,12 +94,36 @@ import { passesRequest } from "@/network/passes";
     DeselectPass(id: number) {
       this.PassSelected = -1;
     },
+    updateFloor() {
+      var currentTime = Date.now();
+
+      var floorStep = 10000;
+      var floor = (currentTime % floorStep) / 1000;
+      this.percentage = (floor / 10) * 100;
+      if (this.percentage < 1 && Date.now() - this.lastTimeUpdated > 100) {
+        passesRequest().then((result) => {
+          this.passes = result;
+          this.$forceUpdate();
+        });
+
+        console.log("update passes");
+        this.lastTimeUpdated = Date.now();
+        this.forceRerender();
+      }
+    },
+    forceRerender() {
+      this.componentKey += 1;
+    },
   },
   mounted() {
     passesRequest().then((result) => {
       console.log(result);
       this.passes = result;
+      this.lastTimeUpdated = Date.now();
     });
+    setInterval(() => {
+      this.updateFloor();
+    }, 100);
   },
 })
 export default class PassView extends Vue {
@@ -110,6 +140,24 @@ export default class PassView extends Vue {
   margin-left: 32px;
 }
 
+.passes---viewer---pass {
+  margin-left: 32px;
+  margin-bottom: 32px;
+}
+
+@media only screen and (max-width: 600px) {
+  .passes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin-left: 0px;
+  }
+  .passes---viewer---pass {
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+}
 .passes---viewer---pass-background {
   padding: 12px;
   border-radius: 16px;
@@ -156,9 +204,5 @@ export default class PassView extends Vue {
 
   box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
   border-radius: 100px;
-}
-.passes---viewer---pass {
-  margin-left: 32px;
-  margin-bottom: 32px;
 }
 </style>

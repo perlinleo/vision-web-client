@@ -78,6 +78,13 @@ import { User, UserAccountResponse } from "./models/user";
   },
   mounted() {
     // console.log("hello");
+    console.log(this.$route);
+
+    // alert(window.URL);
+    if (this.$route.path === "/check") {
+      // alert("check");
+      return;
+    }
     let userData: User;
     userRequest().then((result) => {
       const response = result as unknown as UserAccountResponse;
@@ -91,7 +98,7 @@ import { User, UserAccountResponse } from "./models/user";
         isAuthenticated: true,
       });
 
-      router.replace(getUserStartPage(response.RoleID));
+      // router.replace(getUserStartPage(response.RoleID));
       // userData = result.json;
     });
   },

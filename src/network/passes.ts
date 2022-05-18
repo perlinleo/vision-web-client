@@ -9,3 +9,12 @@ export const passesRequest = (): Promise<Response> => {
     return result.json();
   });
 };
+
+export const checkPassRequest = (data: string): Promise<Response> => {
+  return fetch(`${apiUrl}/api/v1/check/${data}`, {
+    headers: headers,
+    method: "GET",
+  }).then((result) => {
+    return result.json();
+  });
+};

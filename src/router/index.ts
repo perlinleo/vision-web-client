@@ -96,6 +96,15 @@ export const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "sign-in" */ "../views/ProfilesAdminView.vue"
       ),
   },
+  {
+    path: "/check",
+    name: "check",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "sign-in" */ "../views/CheckPassView.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -1,8 +1,13 @@
 <template>
   <div class="card-body" ref="card">
-    <div class="card-header">
+    <div
+      class="card-header"
+      :style="{ 'background-position': `${percentage}% ${percentage}%` }"
+    >
       <div class="card-header-icon"></div>
-      <div class="card-header-label">{{ card.companyName }}</div>
+      <div class="card-header-label">
+        {{ card.companyName }}
+      </div>
     </div>
     <div class="owner">
       <div class="owner-label">имя владельца</div>
@@ -10,7 +15,8 @@
         {{ card.ownerFirstName }} / {{ card.ownerLastName }}
       </div>
     </div>
-    <qrcode-vue v-if="!unknownQr" :value="secretValue" size="320" level="H" />
+    {{ secureData }}
+    <qrcode-vue v-if="!unknownQr" :value="secureData" size="320" level="H" />
     <img v-else :src="require(`@/assets/icons/unknown-qr.svg`)" height="320" />
     <div class="card-date">
       <div class="card-date-line">
@@ -33,12 +39,15 @@ import QrcodeVue from "qrcode.vue";
 @Options({
   data() {
     return {
-      secretValue: "ilyagu otsosi",
+      secureData: this.secureData,
+      percentage: this.percentage,
     };
   },
   props: {
     card: Object as () => { value: Card },
     unknownQr: Boolean,
+    secureData: String,
+    percentage: String,
   },
   components: {
     QrcodeVue,
@@ -47,10 +56,17 @@ import QrcodeVue from "qrcode.vue";
     this.$refs.card.style.transform = "translateY(100px);";
     console.log(this.$refs.card.style.transform);
   },
+  watch: {
+    percentage() {
+      console.log(this.percantage);
+    },
+  },
 })
 export default class InputField extends Vue {
   card!: Card;
   unknownQr!: boolean;
+  secretValue!: string;
+  percentage!: number;
 }
 </script>
 
@@ -103,6 +119,15 @@ export default class InputField extends Vue {
   height: 64px;
   display: flex;
   background-color: red;
+  background: linear-gradient(
+    90deg,
+    #fffb00 0%,
+    #08fa00 25%,
+    #00ff11 50.01%,
+    #fffb00 75%,
+    #08fa00 100%
+  );
+  background-size: 400% 400%;
   border-radius: 16px 16px 0 0;
   align-items: center;
   justify-content: center;
