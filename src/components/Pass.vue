@@ -20,7 +20,7 @@
       v-if="!unknownQr"
       :value="`https://vision.leonidperl.in/check?data=${secureData}`"
       size="320"
-      level="H"
+      level="L"
     />
     <img v-else :src="require(`@/assets/icons/unknown-qr.svg`)" height="320" />
     <div class="card-date">
