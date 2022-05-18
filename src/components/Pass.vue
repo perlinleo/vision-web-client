@@ -25,7 +25,7 @@
       <img
         v-else
         :src="require(`@/assets/icons/unknown-qr.svg`)"
-        height="320"
+        height="280"
       />
     </div>
     <div class="card-date">
