@@ -16,7 +16,12 @@
       </div>
     </div>
     {{ secureData }}
-    <qrcode-vue v-if="!unknownQr" :value="secureData" size="320" level="H" />
+    <qrcode-vue
+      v-if="!unknownQr"
+      :value="`https://vision.leonidperl.in/check?data=${secureData}`"
+      size="320"
+      level="H"
+    />
     <img v-else :src="require(`@/assets/icons/unknown-qr.svg`)" height="320" />
     <div class="card-date">
       <div class="card-date-line">
