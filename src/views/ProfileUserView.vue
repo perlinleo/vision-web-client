@@ -60,6 +60,14 @@ export default class PassagesAdminView extends Vue {}
   justify-content: center;
 }
 
+@media only screen and (max-width: 600px) {
+  .profile---view {
+    display: flex;
+    width: 100%;
+    margin-left: 0px;
+    justify-content: center;
+  }
+}
 .close---role---form---button {
   position: fixed;
   top: 64px;

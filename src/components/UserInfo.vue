@@ -71,4 +71,17 @@ export default class UserInfo extends Vue {
   font-size: 24px;
   color: #a0a0a0;
 }
+
+@media only screen and (max-width: 600px) {
+  .user-role {
+    text-align: center;
+    color: #a0a0a0;
+  }
+
+  .user-role---large {
+    text-align: center;
+    font-size: 24px;
+    color: #a0a0a0;
+  }
+}
 </style>

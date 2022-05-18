@@ -68,6 +68,15 @@ import { roleNamesMap, Roles, getUserStartPage } from "@/roles/roles";
       this.InputField.validate();
     },
     apply() {
+      // remove
+      // this.$store.commit("loginUser", {
+      //   userData: {
+      //     firstName: "penis",
+      //     lastName: "penis",
+      //     userRoleID: 1,
+      //   },
+      //   isAuthenticated: true,
+      // });
       const userData: LoginUser = createLoginUser(this.email, this.password);
       console.log(userData);
       loginRequest(userData).then((response) => {

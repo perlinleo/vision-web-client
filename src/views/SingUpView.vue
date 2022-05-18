@@ -187,4 +187,9 @@ export default class SignInView extends Vue {}
 
   border-radius: 16px;
 }
+@media only screen and (max-width: 600px) {
+  .card-body {
+    display: none;
+  }
+}
 </style>

@@ -29,7 +29,7 @@
         /></router-link>
       </div>
       <Button
-        style="margin-top: 144px"
+        class="logout---button"
         label="Выйти"
         icon="logout"
         :action="logout"
@@ -126,15 +126,33 @@ body {
   margin-left: 64px;
 }
 
+.nav-right {
+  display: flex;
+  margin-top: 12px;
+  margin-right: 24px;
+}
+
 #app {
   font-family: "proxima-nova";
   text-align: center;
 }
 
+.logout---button {
+  margin-top: 144px;
+}
+
 @media only screen and (max-width: 600px) {
+  .logout---button {
+    margin-top: 18px;
+  }
   #app {
     width: 100%;
     height: 100%;
+  }
+  .left-menu {
+    overflow-x: scroll;
+    display: flex;
+    width: 100%;
   }
   .header-nav {
     width: 100%;
@@ -145,17 +163,22 @@ body {
   }
   .router-view-container {
     display: flex;
-    justify-content: space-between;
-    width: 80%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     margin: 0px;
     margin-left: 0px;
     padding: 0px;
   }
-}
-.nav-right {
-  display: flex;
-  margin-top: 12px;
-  margin-right: 24px;
+  .nav-right {
+    overflow-x: scroll;
+    margin-right: 0px;
+  }
+  .header-nav {
+    margin: 0px;
+    padding: 0px;
+  }
 }
 
 .top-menu {
