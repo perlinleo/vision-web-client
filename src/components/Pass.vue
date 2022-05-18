@@ -15,14 +15,19 @@
         {{ card.ownerFirstName }} / {{ card.ownerLastName }}
       </div>
     </div>
-    {{ secureData }}
-    <qrcode-vue
-      v-if="!unknownQr"
-      :value="`https://vision.leonidperl.in/check?data=${secureData}`"
-      size="320"
-      level="L"
-    />
-    <img v-else :src="require(`@/assets/icons/unknown-qr.svg`)" height="320" />
+    <div style="background-color: white">
+      <qrcode-vue
+        v-if="!unknownQr"
+        :value="`https://vision.leonidperl.in/check?data=${secureData}`"
+        size="280"
+        level="L"
+      />
+      <img
+        v-else
+        :src="require(`@/assets/icons/unknown-qr.svg`)"
+        height="320"
+      />
+    </div>
     <div class="card-date">
       <div class="card-date-line">
         <div class="card-date-until-label">активен до</div>
