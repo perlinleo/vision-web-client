@@ -5,9 +5,9 @@
         <img :src="require(`../assets/icons/${typeImg}.svg`)" height="48" />
         Заявка на
         <select v-model="selected">
-          <option :value="0">пропуск</option>
-          <option :value="1">продление пропуска</option>
-          <option :value="2">роль</option>
+          <option :value="0">→ пропуск</option>
+          <option :value="1">→ продление</option>
+          <option :value="2">→ роль</option>
         </select>
       </div>
       <!-- different forms -->
@@ -27,6 +27,7 @@ import Button from "@/components/Button.vue";
 import AskPass from "@/components/AskPass.vue";
 import AskRole from "@/components/AskRole.vue";
 import AskTime from "@/components/AskTime.vue";
+import { mapGetters } from "vuex";
 
 @Options({
   components: {
@@ -98,11 +99,13 @@ select {
   box-shadow: none;
   /* Personalize */
   flex: 1;
-  color: #fff;
-  background-color: transparent;
+  color: rgb(255, 255, 255);
   background-image: none;
+  background-color: #4b4b4b;
+  padding: 12px;
+  border-radius: 16px;
   cursor: pointer;
-  font-size: 36px;
+  font-size: 24px;
 }
 
 option {

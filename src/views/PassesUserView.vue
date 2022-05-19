@@ -25,32 +25,26 @@
             :percentage="percentage"
           />
         </div>
-        <div
-          v-else
-          class="passes---viewer---pass---selected"
-          @click="DeselectPass(pass.id)"
-        >
+        <div v-else class="passes---viewer---pass---selected">
           <Pass
             :card="{
-              companyName: 'имя',
-              ownerFirstName: 'имя',
-              ownerLastName: 'имя',
-              dueDate: 'имя',
-              issueDate: 'имя',
+              companyName: pass.pass_name,
+              ownerFirstName: userFirstName,
+              ownerLastName: userLastName,
+              dueDate: pass.dueDate.slice(0, 10),
+              issueDate: pass.issueDate.slice(0, 10),
             }"
+            :unknownQr="!pass.is_active"
+            :secureData="pass.secure_data"
+            :percentage="percentage"
           />
-          <Button
-            style="margin-top: 64px"
-            label="Продлить"
-            icon="asktime"
-            :action="apply"
-          />
-          <Button
-            style="margin-top: 64px"
-            label="Проходы"
-            icon="passages"
-            :action="apply"
-          />
+          <div class="passes---viewer---pass---selected---actions">
+            <Button
+              style="margin-top: 32px"
+              label="Назад"
+              @click="DeselectPass(pass.id)"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -132,6 +126,12 @@ export default class PassView extends Vue {
 </script>
 
 <style lang="css" scoped>
+.passes---viewer---pass---selected---actions {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  margin-left: 100px;
+}
 .passes {
   display: flex;
   justify-content: center;

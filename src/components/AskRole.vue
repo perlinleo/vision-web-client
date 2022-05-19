@@ -5,19 +5,27 @@
       {{ userRole }}
       <img :src="require(`../assets/icons/${typeImg}.svg`)" :height="24" />
     </div>
-    <div class="form---select---caption">
+    <div class="form---select---caption" v-if="userRoleID < 4">
       <div class="form---date">от {{ currentDate }} <br /></div>
       Я, {{ userFirstName }} {{ userLastName }}, хочу полчить роль
       <select v-model="roleID">
-        <option :value="3" v-if="userRoleID < 2">уполномоченное лицо</option>
-        <option :value="4" v-if="userRoleID < 3">
-          сотрудник службы безопасности
+        <option :value="2" v-if="userRoleID < 2">→ уполномоченное лицо</option>
+        <option :value="3" v-if="userRoleID < 3">
+          → сотрудник службы безопасности
         </option>
-        <option :value="5">админ</option>
+        <option :value="4" v-if="userRoleID < 4">→ админинстратор</option>
       </select>
     </div>
+    <div v-if="userRoleID > 3" class="form---caption">
+      Вы уже имеете максимальную роль
+    </div>
   </div>
-  <Button class="apply---button" label="Заявить" :action="apply" />
+  <Button
+    class="apply---button"
+    label="Заявить"
+    :action="apply"
+    v-if="userRoleID < 4"
+  />
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
@@ -122,9 +130,11 @@ select {
   box-shadow: none;
   /* Personalize */
   flex: 1;
-  color: #fff;
-  background-color: transparent;
+  color: rgb(255, 255, 255);
   background-image: none;
+  background-color: #4b4b4b;
+  padding: 12px;
+  border-radius: 16px;
   cursor: pointer;
   font-size: 24px;
 }

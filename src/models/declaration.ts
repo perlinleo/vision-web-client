@@ -10,6 +10,12 @@ export interface AskPassForm {
   name: string;
 }
 
+export interface AskTimeForm {
+  comment: string;
+  time: Date;
+  passID: string;
+}
+
 export interface DeclarationToReact {
   type: number;
   innerID: number;

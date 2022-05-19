@@ -21,6 +21,19 @@
       @click="accept"
     />
     <img :src="require(`../assets/icons/deny.svg`)" height="24" @click="deny" />
+    <view-declaration
+      :innerID="innerID"
+      :type="type"
+      :creator="creator"
+      :date="date"
+      v-if="showInspect"
+    />
+    <Button
+      v-if="showInspect"
+      class="close---role---form---button"
+      label="Закрыть"
+      :action="deinspect"
+    />
   </div>
 </template>
 
@@ -32,6 +45,8 @@ import {
   denyDeclarationsRequest,
 } from "@/network/declaration";
 import { DeclarationToReact } from "@/models/declaration";
+import ViewDeclaration from "@/components/ViewDeclaration.vue";
+import Button from "./Button.vue";
 
 @Options({
   props: {
@@ -39,6 +54,10 @@ import { DeclarationToReact } from "@/models/declaration";
     date: String,
     creator: String,
     innerID: Number,
+  },
+  components: {
+    ViewDeclaration,
+    Button,
   },
   computed: {
     typeString() {
@@ -52,25 +71,40 @@ import { DeclarationToReact } from "@/models/declaration";
     return {
       innerID: this.innerID,
       type: this.type,
+      showInspect: false,
     };
   },
   methods: {
     inspect() {
-      console.log(this.type);
+      this.showInspect = true;
+      console.log(this.inspect);
+      this.$emit("inspect");
+    },
+    deinspect() {
+      this.showInspect = false;
+      console.log(this.inspect);
+      this.$emit("inspect");
     },
     accept() {
       let formData: DeclarationToReact = {
         innerID: this.innerID,
         type: this.type,
       };
-      acceptDeclarationsRequest(formData);
+      acceptDeclarationsRequest(formData).then((result) => {
+        console.log(result);
+        this.$emit("accept");
+      });
     },
     deny() {
       let formData: DeclarationToReact = {
         innerID: this.innerID,
         type: this.type,
       };
-      denyDeclarationsRequest(formData);
+
+      denyDeclarationsRequest(formData).then((result) => {
+        console.log(result);
+        this.$emit("deny");
+      });
     },
   },
   emits: ["accept", "deny", "inspect"],
@@ -98,5 +132,11 @@ export default class DeclarationTableCell extends Vue {
 img {
   padding-right: 24px;
   cursor: pointer;
+}
+
+.close---role---form---button {
+  position: fixed;
+  top: 64px;
+  right: 64px;
 }
 </style>

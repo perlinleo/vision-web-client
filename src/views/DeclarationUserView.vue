@@ -2,7 +2,7 @@
   <div class="table---buttons---container">
     <div class="table">
       <div class="table---top">
-        <IconHeading title="Мои заявки" icon="declaration" />
+        <IconHeading title="Журнал" icon="declaration" />
       </div>
       <div class="table---heading">
         <div class="table---heading---item">Тип заявки</div>
@@ -10,14 +10,16 @@
         <div class="table---heading---item">Составитель</div>
         <div class="table---heading---item">Статус</div>
       </div>
-      <div v-for="declaration in data" :key="declaration">
-        <DeclarationTableCell
-          :type="declaration.type"
-          :creator="declaration.creator"
-          :date="declaration.created.slice(0, 10)"
-          :accepted="declaration.accepted"
-          :denied="declaration.denied"
-        />
+      <div class="table---content">
+        <div v-for="declaration in data" :key="declaration">
+          <DeclarationTableCell
+            :type="declaration.type"
+            :creator="declaration.creator"
+            :date="declaration.created.slice(0, 10)"
+            :accepted="declaration.accepted"
+            :denied="declaration.denied"
+          />
+        </div>
       </div>
     </div>
     <div>
@@ -115,10 +117,30 @@ export default class HomeView extends Vue {
   margin-left: 32px;
   padding-top: 32px;
 }
+.table---content {
+  height: 250px;
+  overflow-y: scroll;
+}
 
 .table---heading---item {
   width: 200px;
   text-align: start;
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #202020;
+
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e4e4e4;
+
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+  border-radius: 100px;
 }
 
 .table---searchbox {

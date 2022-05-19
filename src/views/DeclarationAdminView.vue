@@ -27,11 +27,16 @@
 
       <div v-for="declaration in data" :key="declaration">
         <DeclarationsTableCell
-          v-if="!(declaration.accepted || declaration.denied)"
+          v-if="
+            !(declaration.accepted || declaration.denied) &&
+            searchRegex(declaration.creator)
+          "
           :type="declaration.type"
           :creator="declaration.creator"
           :date="declaration.created.slice(0, 10)"
           :innerID="declaration.innerID"
+          @accept="updateData"
+          @deny="updateData"
         />
       </div>
     </div>
@@ -67,6 +72,15 @@ import { declarationsRequest } from "@/network/declaration";
   methods: {
     openRoleForm() {
       this.roleFormOpen = true;
+    },
+    updateData() {
+      declarationsRequest().then((result) => {
+        this.data = result;
+      });
+    },
+    searchRegex(data: string) {
+      const r = new RegExp(`.*${this.search}.*`);
+      return r.test(data);
     },
   },
 })

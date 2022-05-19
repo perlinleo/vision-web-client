@@ -54,7 +54,7 @@ export const menuItems: Map<string, menuItem> = new Map([
     Menu.declaration,
     {
       path: "/declaration",
-      label: "Заявки",
+      label: "Журнал",
       icon: "declaration",
     },
   ],

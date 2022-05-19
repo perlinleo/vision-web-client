@@ -40,6 +40,7 @@ export const userMenus: Map<number, Array<menuItem | undefined>> = new Map([
     Roles.ProEmployee,
     [
       menuItems.get(Menu.pass),
+      menuItems.get(Menu.profiles),
       menuItems.get(Menu.declaration),
       menuItems.get(Menu.profile),
     ],
@@ -47,8 +48,10 @@ export const userMenus: Map<number, Array<menuItem | undefined>> = new Map([
   [
     Roles.Guard,
     [
+      menuItems.get(Menu.pass),
       menuItems.get(Menu.passages),
       menuItems.get(Menu.profiles),
+      menuItems.get(Menu.declaration),
       menuItems.get(Menu.declarations),
       menuItems.get(Menu.profile),
     ],
@@ -56,8 +59,10 @@ export const userMenus: Map<number, Array<menuItem | undefined>> = new Map([
   [
     Roles.Admin,
     [
+      menuItems.get(Menu.pass),
       menuItems.get(Menu.passages),
       menuItems.get(Menu.profiles),
+      menuItems.get(Menu.declaration),
       menuItems.get(Menu.declarations),
       menuItems.get(Menu.profile),
     ],
